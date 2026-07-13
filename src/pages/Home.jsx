@@ -24,6 +24,9 @@ export default function Home() {
       </div>
     )
   }
+
+  return (
+    <div className="min-h-screen">
       {/* Hero */}
       <section className="relative">
         <div className="relative h-[80vh] min-h-[560px] w-full overflow-hidden">

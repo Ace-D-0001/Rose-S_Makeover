@@ -44,7 +44,7 @@ export default function Contact() {
             </li>
             <li>
               <span className="block font-medium text-mauve">Email</span>
-              hello@ayeshabridal.com
+              hello@rosebridalstudio.com
             </li>
             <li>
               <span className="block font-medium text-mauve">Location</span>

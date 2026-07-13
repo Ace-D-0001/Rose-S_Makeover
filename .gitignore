@@ -1,7 +1,4 @@
 ```
-# Build artifacts
-dist/
-build/
-*.js
-*.css
+# Environment variables
+.env
 ```

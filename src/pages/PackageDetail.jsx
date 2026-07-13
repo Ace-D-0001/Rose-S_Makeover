@@ -1,13 +1,41 @@
+import { useState, useEffect } from "react"
 import { useParams, Link, Navigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { getPackageById } from "../data/packages"
 import BrushStroke from "../components/BrushStroke"
 
 export default function PackageDetail() {
   const { id } = useParams()
-  const pkg = getPackageById(id)
+  const [pkg, setPkg] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
-  if (!pkg) return <Navigate to="/packages" replace />
+  useEffect(() => {
+    fetch(`/api/packages?id=${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Package not found')
+        return res.json()
+      })
+      .then(data => {
+        setPkg(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [id])
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24">
+        <p className="font-body text-sm text-mauve-light">Loading package details...</p>
+      </div>
+    )
+  }
+
+  if (error || !pkg) {
+    return <Navigate to="/packages" replace />
+  }
 
   const waMessage = `Hi! I'd like to book the ${pkg.name} package.`
   const waHref = `https://wa.me/8801XXXXXXXXX?text=${encodeURIComponent(waMessage)}`

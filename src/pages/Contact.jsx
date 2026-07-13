@@ -1,10 +1,21 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import BrushStroke from "../components/BrushStroke"
+import { useSiteContent } from "../context/SiteContentContext"
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" })
+  const { siteContent, loading } = useSiteContent()
+  
+  // Fallback to hardcoded values if content not loaded
+  const content = siteContent?.contact || {}
+  const whatsappNumber = content.whatsappNumber || "+880 1XXX-XXXXXX"
+  const phoneDisplay = content.phoneDisplay || "+880 1XXX-XXXXXX"
+  const email = content.email || "hello@rosebridalstudio.com"
+  const locationText = content.locationText || "Dhaka, Bangladesh — available for on-location bookings"
+  const instagramUrl = content.instagramUrl || "#"
+  const facebookUrl = content.facebookUrl || "#"
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }))
@@ -15,6 +26,14 @@ export default function Contact() {
     // e.g. fetch("https://formspree.io/f/your-id", { method: "POST", body: new FormData(e.target) })
     console.log("Contact form submitted:", form)
     setSubmitted(true)
+  }
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-mauve-light">Loading...</p>
+      </div>
+    )
   }
 
   return (
@@ -40,23 +59,23 @@ export default function Contact() {
           <ul className="mt-5 space-y-4 font-body text-sm text-mauve-light">
             <li>
               <span className="block font-medium text-mauve">WhatsApp / Phone</span>
-              +880 1XXX-XXXXXX
+              {phoneDisplay}
             </li>
             <li>
               <span className="block font-medium text-mauve">Email</span>
-              hello@ayeshabridal.com
+              {email}
             </li>
             <li>
               <span className="block font-medium text-mauve">Location</span>
-              Dhaka, Bangladesh — available for on-location bookings
+              {locationText}
             </li>
             <li>
               <span className="block font-medium text-mauve">Follow</span>
-              <a href="#" className="focus-ring rounded-sm underline decoration-rosegold underline-offset-2">
+              <a href={instagramUrl} className="focus-ring rounded-sm underline decoration-rosegold underline-offset-2" target="_blank" rel="noreferrer">
                 Instagram
               </a>
               {" · "}
-              <a href="#" className="focus-ring rounded-sm underline decoration-rosegold underline-offset-2">
+              <a href={facebookUrl} className="focus-ring rounded-sm underline decoration-rosegold underline-offset-2" target="_blank" rel="noreferrer">
                 Facebook
               </a>
             </li>

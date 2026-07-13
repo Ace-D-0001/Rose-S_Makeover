@@ -1,5 +1,6 @@
+// Use Node.js runtime instead of Edge for full MongoDB and bcrypt support
 export const config = {
-  runtime: 'edge',
+  runtime: 'nodejs',
 };
 
 export default async function handler(req) {

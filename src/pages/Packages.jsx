@@ -1,9 +1,60 @@
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { packages } from "../data/packages"
 import BrushStroke from "../components/BrushStroke"
 
 export default function Packages() {
+  const [packages, setPackages] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    fetch('/api/packages')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch packages')
+        return res.json()
+      })
+      .then(data => {
+        setPackages(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="text-center">
+          <p className="font-body text-sm text-mauve-light">Loading packages...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="text-center">
+          <p className="font-body text-sm text-red-600">Error: {error}</p>
+          <p className="mt-2 font-body text-sm text-mauve-light">Please refresh the page or try again later.</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (packages.length === 0) {
+    return (
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+        <div className="text-center">
+          <p className="font-body text-sm text-mauve-light">No packages available at the moment.</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
       <div className="text-center">

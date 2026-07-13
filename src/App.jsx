@@ -7,6 +7,7 @@ import PackageDetail from "./pages/PackageDetail"
 import Contact from "./pages/Contact"
 import AdminLogin from "./pages/admin/AdminLogin"
 import AdminDashboard from "./pages/admin/AdminDashboard"
+import SiteContentAdmin from "./pages/admin/SiteContentAdmin"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       {/* Admin routes without layout */}
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/content" element={<SiteContentAdmin />} />
     </Routes>
   )
 }

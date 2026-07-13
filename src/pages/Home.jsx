@@ -2,15 +2,33 @@ import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 import BrushStroke from "../components/BrushStroke"
 import { packages } from "../data/packages"
+import { useSiteContent } from "../context/SiteContentContext"
 
 export default function Home() {
-  return (
-    <div>
+  const { siteContent, loading } = useSiteContent()
+  
+  // Fallback to hardcoded values if content not loaded
+  const content = siteContent?.homepage || {}
+  const heroImage = content.heroImage || "https://images.unsplash.com/photo-1596704017254-9b1b1c3d0c75?w=1600&h=1400&fit=crop"
+  const heroTagline = content.heroTagline || "Bridal Makeup Artist · Dhaka, Bangladesh"
+  const heroTitle = content.heroTitle || "Rose Bridal Studio"
+  const introQuote = content.introQuote || "Every bride deserves to look like the most radiant version of herself — not someone else."
+  const introText = content.introText || "I'm Rose, a Dhaka-based makeup artist who has had the honour of getting over 300 brides ready for their big day. My approach blends long-wear, humidity-proof techniques with a soft, natural-glam style — so you look flawless in photos and feel like yourself all night long."
+  const ctaTitle = content.ctaTitle || "Ready to plan your bridal look?"
+  const ctaSubtext = content.ctaSubtext || "Let's create something beautiful together for your special day."
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[80vh] items-center justify-center">
+        <p className="text-mauve-light">Loading...</p>
+      </div>
+    )
+  }
       {/* Hero */}
       <section className="relative">
         <div className="relative h-[80vh] min-h-[560px] w-full overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1596704017254-9b1b1c3d0c75?w=1600&h=1400&fit=crop"
+            src={heroImage}
             alt="South Asian bride with soft bridal makeup, close portrait"
             className="h-full w-full object-cover"
           />
@@ -26,15 +44,14 @@ export default function Home() {
               className="mx-auto max-w-3xl text-center"
             >
               <p className="font-body text-xs uppercase tracking-[0.3em] text-blush">
-                Bridal Makeup Artist · Dhaka, Bangladesh
+                {heroTagline}
               </p>
               <h1 className="mt-3 font-display text-5xl italic leading-tight text-ivory sm:text-6xl">
-                Rose Bridal Studio
+                {heroTitle}
               </h1>
               <BrushStroke className="mx-auto mt-3 h-4 w-40" color="#f9f3f1" />
               <p className="mx-auto mt-5 max-w-xl font-body text-base text-blush/90 sm:text-lg">
-                Soft glam, radiant skin, and a look that feels entirely you —
-                for the most photographed day of your life.
+                {introText}
               </p>
               <Link
                 to="/packages"
@@ -56,14 +73,10 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="font-display text-2xl italic text-mauve sm:text-3xl"
         >
-          "Every bride deserves to look like the most radiant version of herself —
-          not someone else."
+          "{introQuote}"
         </motion.p>
         <p className="mt-6 font-body text-sm leading-relaxed text-mauve-light sm:text-base">
-          I'm Rose, a Dhaka-based makeup artist who has had the honour of
-          getting over 300 brides ready for their big day. My approach blends
-          long-wear, humidity-proof techniques with a soft, natural-glam style —
-          so you look flawless in photos and feel like yourself all night long.
+          {introText}
         </p>
       </section>
 
@@ -203,10 +216,10 @@ export default function Home() {
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-5 py-12 text-center sm:px-8 sm:py-16">
         <h2 className="font-display text-3xl italic text-mauve">
-          Ready to plan your bridal look?
+          {ctaTitle}
         </h2>
         <p className="mt-3 font-body text-sm text-mauve-light sm:text-base">
-          Let's create something beautiful together for your special day.
+          {ctaSubtext}
         </p>
         <Link
           to="/contact"

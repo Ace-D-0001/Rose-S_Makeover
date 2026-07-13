@@ -160,6 +160,12 @@ export default function AdminDashboard() {
           </div>
           <div className="flex items-center gap-4">
             <button
+              onClick={() => navigate("/admin/content")}
+              className="rounded-full bg-[#A62639] px-5 py-2 text-sm font-medium text-white hover:bg-[#8a1f2f]"
+            >
+              Edit Site Content
+            </button>
+            <button
               onClick={openAddForm}
               className="rounded-full bg-[#A62639] px-5 py-2 text-sm font-medium text-white hover:bg-[#8a1f2f]"
             >

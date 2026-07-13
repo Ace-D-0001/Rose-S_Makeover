@@ -8,29 +8,19 @@ if (!uri) {
 }
 
 let cachedClient = null;
-let cachedPromise = null;
+let cachedDb = null;
 
 export async function connectToDatabase() {
-  if (cachedClient) {
-    return cachedClient;
-  }
-
-  if (cachedPromise) {
-    await cachedPromise;
-    return cachedClient;
+  if (cachedClient && cachedDb) {
+    return { client: cachedClient, db: cachedDb };
   }
 
   const client = new MongoClient(uri);
-  const connectPromise = client.connect();
+  await client.connect();
+  const db = client.db(dbName);
+
+  cachedClient = client;
+  cachedDb = db;
   
-  try {
-    await connectPromise;
-    const db = client.db(dbName);
-    
-    cachedClient = { client, db };
-    return cachedClient;
-  } catch (error) {
-    cachedPromise = null;
-    throw error;
-  }
+  return { client, db };
 }

@@ -1,10 +1,12 @@
-// Use Node.js runtime instead of Edge for full MongoDB and bcrypt support
+import bcrypt from 'bcryptjs';
+import { connectToDatabase } from '../lib/db.js';
+import { signToken } from '../lib/auth.js';
+
 export const config = {
   runtime: 'nodejs',
 };
 
 export default async function handler(req) {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, {
       status: 200,
@@ -19,7 +21,7 @@ export default async function handler(req) {
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
       status: 405,
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
@@ -33,23 +35,20 @@ export default async function handler(req) {
     if (!email || !password) {
       return new Response(JSON.stringify({ error: 'Email and password required' }), {
         status: 400,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
       });
     }
 
-    const bcrypt = await import('bcryptjs');
-    const { connectToDatabase } = await import('../lib/db.js');
     const { db } = await connectToDatabase();
-    
     const admin = await db.collection('admins').findOne({ email });
 
     if (!admin) {
       return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
         status: 401,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
@@ -61,19 +60,18 @@ export default async function handler(req) {
     if (!isValid) {
       return new Response(JSON.stringify({ error: 'Invalid credentials' }), {
         status: 401,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
       });
     }
 
-    const { signToken } = await import('../lib/auth.js');
     const token = signToken({ email, role: 'admin' });
 
     return new Response(JSON.stringify({ token, email }), {
       status: 200,
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
@@ -82,7 +80,7 @@ export default async function handler(req) {
     console.error('Login error:', error);
     return new Response(JSON.stringify({ error: 'Login failed: ' + error.message }), {
       status: 500,
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },

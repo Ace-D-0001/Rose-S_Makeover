@@ -10,7 +10,7 @@ const stats = [
 const testimonials = [
   {
     quote:
-      "Ayesha understood exactly what I wanted and made my Gaye Holud, mehndi, and wedding looks all feel distinct yet cohesive.",
+      "Rose understood exactly what I wanted and made my Gaye Holud, mehndi, and wedding looks all feel distinct yet cohesive.",
     name: "Nusrat J.",
   },
   {
@@ -30,7 +30,7 @@ export default function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&h=1000&fit=crop"
-          alt="Portrait of Ayesha, bridal makeup artist"
+          alt="Portrait of Rose, bridal makeup artist"
           className="aspect-[4/5] w-full rounded-2xl object-cover shadow-lg shadow-mauve/10"
         />
 
@@ -44,7 +44,7 @@ export default function About() {
             About Us
           </p>
           <h1 className="mt-3 font-display text-4xl italic text-mauve sm:text-5xl">
-            Hi, I'm Ayesha
+            Hi, I'm Rose
           </h1>
           <BrushStroke className="mt-3 h-3 w-32" color="#b98a4f" />
           <p className="mt-6 font-body text-sm leading-relaxed text-mauve-light sm:text-base">

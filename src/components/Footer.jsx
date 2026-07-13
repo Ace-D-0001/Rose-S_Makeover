@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <p className="font-display text-2xl italic text-ivory">Ayesha Bridal Studio</p>
+            <p className="font-display text-2xl italic text-ivory">Makeover by Rose</p>
             <BrushStroke className="mt-2 h-3 w-28" color="#c79a8f" />
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-blush/80">
               Bridal & event makeup artistry based in Dhaka, available for
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
             <ul className="space-y-2 text-sm text-blush/80">
               <li>WhatsApp: +880 1XXX-XXXXXX</li>
-              <li>Email: hello@ayeshabridal.com</li>
+              <li>Email: hello@makeoverbyrose.com</li>
               <li>Dhaka, Bangladesh</li>
             </ul>
           </div>
@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 border-t border-blush/20 pt-6 text-xs text-blush/60">
-          © {new Date().getFullYear()} Ayesha Bridal Studio. All rights reserved.
+          © {new Date().getFullYear()} Makeover by Rose. All rights reserved.
         </p>
       </div>
     </footer>

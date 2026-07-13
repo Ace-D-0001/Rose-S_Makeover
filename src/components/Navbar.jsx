@@ -20,7 +20,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 border-b border-blush-deep/60 bg-ivory/90 backdrop-blur-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <NavLink to="/" className="focus-ring rounded-sm font-display text-2xl italic text-mauve">
-          Ayesha Bridal Studio
+          Makeover by Rose
         </NavLink>
 
         <div className="hidden items-center gap-8 sm:flex">

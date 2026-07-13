@@ -44,9 +44,9 @@ export default function Home() {
                 Bridal Makeup Artist · Dhaka, Bangladesh
               </p>
               <h1 className="mt-3 font-display text-5xl italic leading-tight text-ivory sm:text-6xl">
-                Makeover by Rose
+                Rose Bridal Studio
               </h1>
-              <BrushStroke className="mx-auto mt-3 h-4 w-40" color="#f7e2e7" />
+              <BrushStroke className="mx-auto mt-3 h-4 w-40" color="#f9f3f1" />
               <p className="mx-auto mt-5 max-w-xl font-body text-base text-blush/90 sm:text-lg">
                 Soft glam, radiant skin, and a look that feels entirely you —
                 for the most photographed day of your life.
